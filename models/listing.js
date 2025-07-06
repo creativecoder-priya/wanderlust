@@ -12,8 +12,8 @@ const ListingSchema = new Schema({
     filename: String,
     url: {
       type: String,
-      default: "https://static.vecteezy.com/vite/assets/photo-masthead-375-BoK_p8LG.webp",
-      set: (v) => v === "" ? "https://static.vecteezy.com/vite/assets/photo-masthead-375-BoK_p8LG.webp" : v,
+      // default: "https://static.vecteezy.com/vite/assets/photo-masthead-375-BoK_p8LG.webp",
+      // set: (v) => v === "" ? "https://static.vecteezy.com/vite/assets/photo-masthead-375-BoK_p8LG.webp" : v,
     },
 }, 
   price: Number,
@@ -25,6 +25,21 @@ const ListingSchema = new Schema({
     ref: "Review",
   },
   ],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  geometry: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    } 
+  },
 });
 
 ListingSchema.post("findOneAndDelete", async(listing) => {
